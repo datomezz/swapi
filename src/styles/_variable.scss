@@ -1,0 +1,28 @@
+:root {
+  font-size : 10px;
+
+  body {
+    font-size : 1.6rem;
+  }
+
+  a {
+    text-decoration : none;
+    color : #fff;
+
+    &:hover {
+      color : #fff;
+      text-decoration : none;
+    }
+  }
+
+  ul {
+    list-style : none;
+  }
+}
+
+@mixin flex($direction, $justify, $align) {
+  display : flex;
+  flex-direction : $direction;
+  justify-content : $justify;
+  align-items : $align;
+}

@@ -1,0 +1,32 @@
+.swapi-jumbotron { 
+  @include flex(row, flex-start, flex-start);
+  width : 40rem;
+
+  .swapi-jumbotron__head {
+    width : 20rem;
+    height : 25rem;
+    padding : .5rem;
+    flex-shrink : 0;
+
+    .swapi-jumbotron__img {
+      width : 100%;
+      height : 100%;
+    }
+  }
+
+  .swapi-jumbotron__body {
+    width : 100%;
+  }
+
+  .swapi-jumbotron__title {
+    
+  }
+
+  .swapi-jumbotron__list {
+
+  }
+  
+  .swapi-jumbotron__list__item {
+
+  }
+}
