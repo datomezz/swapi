@@ -1,7 +1,20 @@
 import React from "react";
+import withService from "../withService";
 
-const StarshipPage = () => {
-  return <h1>Starship Page</h1>
+import Jumbotron from "../jumbotron";
+
+const StarshipPage = ({swapiService}) => {
+
+  const method = (swapiService) => {
+    const rand = ~~(Math.random() * 7) + 2;
+    return swapiService.getStarship(rand);
+  }
+
+  return (
+    <div className="d-flex justify-content-center">
+      <Jumbotron imgType={"starships"} method={() => method(swapiService)} />
+    </div>
+  )
 }
 
-export default StarshipPage;
+export default withService(StarshipPage);

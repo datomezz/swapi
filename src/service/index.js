@@ -13,22 +13,50 @@ export default class SwapiService {
 
   getPerson = async (id) => {
     const res = await this.getData(`people/${id}`);
-    return  this._transformPerson(res);
+    return this._transformPerson(res);
+  }
+
+  getPlanet = async (id) => {
+    const res = await this.getData(`planets/${id}`);
+    return this._transformPlanet(res);
+  }
+
+  getStarship = async (id) => {
+    const res = await this.getData(`starships/${id}`);
+    return this._transformStarship(res);
+  }
+
+  _transformStarship = (object) => {
+    const {name, model, crew, length} = object;
+    const id = this._extractId(object);
+
+    return {id, Name : name, Model : model, Crew : crew, Length : length}
+  }
+
+  _transformPlanet = (object) => {
+    const {name, rotation_period, diameter, population} = object;
+    const id = this._extractId(object);
+
+    return {
+      id,
+      Name : name,
+      RotationPeriod : rotation_period,
+      Diameter : diameter,
+      Population : population
+    }
   }
 
   _transformPerson = (object) => {
     const {name, birth_year, height} = object;
     const id = this._extractId(object);
 
-    return {id, name, birth_year, height}
+    return {id, Name : name, BirthYear : birth_year, Height : height}
   }
 
   _extractId = (object) => {
     const {url} = object;
-    console.log(url);
     
     const regEx = /\/([0-9]*)\/$/;
-    console.log("match", url.match(regEx));
     return url.match(regEx)[1];
   }
 }

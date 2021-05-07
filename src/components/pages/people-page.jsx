@@ -1,7 +1,21 @@
 import React from "react";
+import withService from "../withService";
 
-const PeoplePage = () => {
-  return <h1>People Page</h1>
+import Jumbotron from "../jumbotron";
+
+const PeoplePage = ({swapiService}) => {
+
+
+  const method = (swapiService) => {
+    const rand = ~~(Math.random() * 10) + 2;
+    return swapiService.getPerson(rand);
+  }
+
+  return (
+    <div className="d-flex justify-content-center">
+      <Jumbotron imgType={"characters"} method={() => method(swapiService)} />
+    </div>
+  )
 }
 
-export default PeoplePage;
+export default withService(PeoplePage);

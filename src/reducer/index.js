@@ -5,9 +5,11 @@ const initialState = {
     {id : 1, label : "planets", title : "Planets"},
     {id : 3, label : "starships", title : "Starships"},
   ],
-  jumbotron : {},
-  loading : false,
-  error : false
+  jumbotron : {
+    loading : true,
+    error : false,
+    list : {}
+  },
 }
 
 const fetchPlanetList = (state, payload) => {
@@ -27,21 +29,29 @@ const reducer = (state = initialState, action) => {
     case "FETCH_JUMBOTRON_REQUEST" :
       return {
         ...state,
-        loading : true,
-        error : false
+        jumbotron : {
+          loading : true,
+          error : false,
+          list : {}
+        }
       }
     case "FETCH_JUMBOTRON_SUCCESS" :
       return {
         ...state,
-        loading : false,
-        error : false,
-        jumbotron : action.payload
+        jumbotron : {
+          loading : false,
+          error : false,
+          list : action.payload
+        }
       }
     case "FETCH_JUMBOTRON_ERROR" :
       return {
         ...state,
-        loading : false,
-        error : true,
+        jumbotron : {
+          loading : false,
+          error : true,
+          list : {}
+        }
       }
     default :
       return state;
