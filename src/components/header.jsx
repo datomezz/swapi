@@ -1,8 +1,10 @@
 import React from "react";
-import {connect} from "react-redux";
+import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
-const Header = ({navList}) => {
+const Header = () => {
+  const {navList} = useSelector(({navList}) => ({navList}));
+
   return (
     <header className="swapi-header">
       <nav className="swapi-navbar">
@@ -25,8 +27,4 @@ const Header = ({navList}) => {
   )
 }
 
-const mapStateToProps = ({navList}) => {
-  return {navList}
-}
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

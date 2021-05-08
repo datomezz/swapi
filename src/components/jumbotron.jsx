@@ -1,17 +1,25 @@
 import React, {useEffect} from "react";
-import {connect} from "react-redux";
-import {FETCH_JUMBOTRON_REQUEST, FETCH_JUMBOTRON_SUCCESS, FETCH_JUMBOTRON_FAILURE} from "../actions";
+import {useSelector, useDispatch} from "react-redux";
+import {
+  FETCH_JUMBOTRON_THUNK, 
+  FETCH_JUMBOTRON_REQUEST, 
+  FETCH_JUMBOTRON_SUCCESS, 
+  FETCH_JUMBOTRON_FAILURE} from "../actions";
 
 import Spinner from "./spinner";
 import ErrorIndicator from "./error-indicator";
 
-const Jumbotron = ({method, jumbotron, imgType, fetchJumbotron}) => {
+const Jumbotron = ({method, imgType}) => {
+  const {jumbotron} = useSelector(({jumbotron}) => ({jumbotron}));
+  const dispatch = useDispatch();
+  const fetchJumbotron = (method) => dispatch(FETCH_JUMBOTRON_THUNK(method));
+
   const {list, error, loading} = jumbotron;
   const IMG_URL = `https://starwars-visualguide.com/assets/img/${imgType}/`;
 
   useEffect(() => {
-    fetchJumbotron();
-    let interval = setInterval(() => fetchJumbotron() , 3000);
+    fetchJumbotron(method);
+    let interval = setInterval(() => fetchJumbotron(method) , 3000);
 
     return () => {
       clearInterval(interval);
@@ -50,24 +58,4 @@ const Jumbotron = ({method, jumbotron, imgType, fetchJumbotron}) => {
   )
 }
 
-const mapStateToProps = ({jumbotron}) => {
-  return {jumbotron}
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    fetchJumbotron : () => {
-      const {method} = ownProps;
-
-      dispatch(FETCH_JUMBOTRON_REQUEST());
-      
-      method()
-        .then((data) => {
-          dispatch(FETCH_JUMBOTRON_SUCCESS(data));
-        })
-        .catch((err) => dispatch(FETCH_JUMBOTRON_FAILURE()));
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Jumbotron);
+export default Jumbotron;
